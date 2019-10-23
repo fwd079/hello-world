@@ -234,6 +234,6 @@ export class PostStaffTransferActionsFormatter
 ```
 
 
-# Conclustion
+# Conclusion
 
 Permissions in Dimensions Online are now properly restructured to cater for Microservices and when we split current website they are now much easier to cut-copy-paste to the new microservice.
