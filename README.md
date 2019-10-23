@@ -12,14 +12,16 @@ To address those limitations, the [Feature 24462 (Permission restructure)](https
 
 Keeping the future objective of switching to [Microservices](https://microservices.io/ "Dedicated website") the Permissions are now divided into **modules**, with each module taking care of its permissions. The permission [God Object](https://en.wikipedia.org/wiki/God_object "Anti Pattern") is now removed and a new library of permissions are now introduced, with this, each class is named after the module it represents. This follows [SOLID principles](https://en.wikipedia.org/wiki/SOLID "SOLID") for better code quality.
 
-### Class structure
+## Class structure
+
+### PermissionKeys Library
 
 1. The classes within `Modules/Library/PermissionKeys` library are within namepsace of `DimensionsOnline.PermissionKeys` to make them available throughout the project. Each class is decorated with the following two [Attributes](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/attributes/ "Attributes (C#)") at class declaration:
 
    1. **NestedPermissionKeys** Attribute. The [NestedPermissionKeys](https://serenity.is/Docs/howto/how_to_register_permissions_in_serene    "Serenity link") attribute ensures that permission keys defined here are also registered and shown in permission dialogue.
    2. **DisplayName** Attribute. This sets the custom text for this Permission class, to show in Permission dialogue.
    
-2. The `public const string` declaration along with its assignment, denotes a _PermissionKey_ member for the class. This member is decorated with a [Description attribute]() which displays text for this PermissionKey in Permissions dialgue. The PermissionKey is then used to specify permissions in relevant module/logic flow, e.g. the following PermissionKey represents Supported Person module's configuration criteria of Contact Method (access to edit/modify Supported Person Contact Method configuration).
+2. The `public const string` declaration along with its assignment, denotes a _PermissionKey_ member for the class. This member is decorated with a [Description attribute](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.descriptionattribute?view=netframework-4.8 "DescriptionAttribute (C#)") which displays text for this PermissionKey in Permissions dialgue. The PermissionKey is then used to specify permissions in relevant module/logic flow, e.g. the following PermissionKey represents Supported Person module's configuration criteria of Contact Method (access to edit/modify Supported Person Contact Method configuration).
 
 ```csharp
 
@@ -29,5 +31,10 @@ Keeping the future objective of switching to [Microservices](https://microservic
         [Description("Config: Communication Method - Access to edit/modify Supported Person Communication Method configuration")]
         public const string CommunicationMethod = "SupportedPerson:CommunicationMethod";
 ```
+
+3. The PermissionKey members are wrapped in `#region ` outlining feature for better viewing.
+
+**NOTE:** There is a special class `Z_999_CombinedKeys` in this library, this holds combined permission keys from other keys in DimensionsOnline.PermissionKeys namespace. This odd name is because of TypeScript generation limitations, where this is generated at the very end, so that other keys could be accessible to this class.
+
 
 
