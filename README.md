@@ -54,7 +54,7 @@ namespace DimensionsOnline.PermissionKeys
    
 3. These are then used to apply permission related restrictions on relevant modules/workflows. Couple of examples as below:
    1. **Page access** To grant a permission to access a page, the `xyzPage` is decorated with `PageAuthorize` attribute, passing in appropriate permission:
-   ```
+   ```csharp
    [PageAuthorize(SupportedPerson.View)]
    public class ClientController : Controller
    { /* code goes here */
