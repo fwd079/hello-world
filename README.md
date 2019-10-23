@@ -55,9 +55,19 @@ namespace DimensionsOnline.PermissionKeys
 3. These are then used to apply permission related restrictions on relevant modules/workflows. Couple of examples as below:
    1. **Page access** To grant a permission to access a page, the `xyzPage` is decorated with `PageAuthorize` attribute, passing in appropriate permission:
    ```csharp
-   [PageAuthorize(SupportedPerson.View)]
+   [PageAuthorize(SupportedPerson.View)] // Only SupportedPerson.View permission is allowed to access this.
    public class ClientController : Controller
    { /* code goes here */
+   ```
+   2. **Web API access** To grant a permission to an Web API Endpoint, the endpoint within xyzController class is decorated with `ServiceAuthorize` attribute, passing in appropriate permission, for example in ClientController:
+   ```csharp
+   [HttpPost, ServiceAuthorize(SupportedPerson.Create)] // Only SupportedPerson.Create permission is allowed to access this.
+   public SaveResponse Create(IUnitOfWork uow, SaveRequest<MyRow> request)
+   {
+      // Add current user as creator.
+      int.TryParse(Authorization.UserId, out int userId);
+      return new MyRepository().Create(uow, request, userId);
+   }
    ```
 
 4. The PermissionKey members are wrapped in `#region ` outlining feature for better viewing.
